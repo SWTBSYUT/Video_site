@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>動画ID入力 - ゆうクラ！</title>
+  <style>
+    body { background: #111; color: white; text-align: center; font-family: sans-serif; padding: 50px; }
+    input { padding: 10px; font-size: 1em; }
+    button { padding: 10px 20px; font-size: 1em; margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <h1>ゆうクラ！</h1>
+  <h2>動画IDを入力してください</h2>
+  <input type="text" id="videoId" placeholder="例: abc123">
+  <button onclick="redirect()">確定</button>
+  <p id="error" style="color:red;"></p>
+
+  <script>
+    // 動画IDごとのページと公開状態
+    const videoPages = {
+      "9ajZi3k": { page: "25anv.html", published: true },
+      "30anv": { page: "30anv.html", published: false }
+    };
+
+    function redirect() {
+      const input = document.getElementById("videoId").value.trim();
+      const video = videoPages[input];
+
+      if (!video) {
+        document.getElementById("error").textContent = "そのIDは存在しません";
+      } else if (!video.published) {
+        document.getElementById("error").textContent = "この動画は現在非公開です";
+      } else {
+        window.location.href = video.page;
+      }
+    }
+  </script>
+</body>
+</html>
